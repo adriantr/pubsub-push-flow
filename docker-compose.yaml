@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  message-publisher:
+    image: "eu.gcr.io/${PROJECT_ID}/message-publisher"
+    build:
+      context: . 
+      args: 
+        APPLICATION_NAME: message-publisher
+    ports: 
+      - "8080:8080"
+    platform: linux/amd64
+  message-processor:
+    image: "eu.gcr.io/${PROJECT_ID}/message-processor"
+    build:
+      context: . 
+      args: 
+        APPLICATION_NAME: message-processor
+    ports: 
+      - "8080:8080"
+    platform: linux/amd64
+  deadletter-notifier:
+    image: "eu.gcr.io/${PROJECT_ID}/deadletter-notifier"
+    build: 
+      context: .
+      args:
+        APPLICATION_NAME: deadletter-notifier
+    ports:
+      - "8080:8080"
+    platform: linux/amd64
